@@ -18,8 +18,14 @@ export const BoardList = async (props: Props) => {
         return redirect("/select-org")
     }
 
-    const boards = await db.board.findMany({ where: { orgId }, orderBy: { createdAt: "desc" } })
-
+    const boards = await db.board.findMany({
+        where: {
+            orgId,
+        },
+        orderBy: {
+            createdAt: "desc"
+        }
+    });
     return (
         <div className="space-y-4">
             <div className="flex items-center font-semibold text-lg text-neutral-700">

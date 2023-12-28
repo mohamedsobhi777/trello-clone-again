@@ -11,7 +11,8 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Header } from "./header";
 import { Description } from "./description";
 import { Actions } from "./actions";
-import Activity from "./activity";
+import { AuditLog } from "@prisma/client";
+import { Activity } from "./activity";
 
 
 export const CardModal = () => {
@@ -24,10 +25,10 @@ export const CardModal = () => {
         queryFn: () => fetcher(`/api/cards/${id}`),
     });
 
-    // const { data: auditLogsData } = useQuery<AuditLog[]>({
-    //     queryKey: ["card-logs", id],
-    //     queryFn: () => fetcher(`/api/cards/${id}/logs`),
-    // });
+    const { data: auditLogsData } = useQuery<AuditLog[]>({
+        queryKey: ["card-logs", id],
+        queryFn: () => fetcher(`/api/cards/${id}/logs`),
+    });
 
     return (
         <Dialog
@@ -46,10 +47,10 @@ export const CardModal = () => {
                                 ? <Description.Skeleton />
                                 : <Description data={cardData} />
                             }
-                            {/* {!auditLogsData
+                            {!auditLogsData
                                 ? <Activity.Skeleton />
                                 : <Activity items={auditLogsData} />
-                            } */}
+                            }
                         </div>
                     </div>
                     {!cardData
